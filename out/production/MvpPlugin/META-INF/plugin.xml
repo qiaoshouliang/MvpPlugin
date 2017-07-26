@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.qiaoshouliang.mvpPlugin</id>
     <name>MvpPlugin</name>
-    <version>1.0</version>
+    <version>2.0</version>
     <vendor email="qiaoshouliang@126.com.com" url="https://github.com/qiaoshouliang/MvpPlugin">Centling</vendor>
 
     <description><![CDATA[
