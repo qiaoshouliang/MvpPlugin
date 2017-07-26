@@ -58,12 +58,16 @@ public class CreateFile {
                 PsiImportStatement importBasePresenter = factory.createImportStatement(basePresenter);
                 PsiImportStatement importBaseView = factory.createImportStatement(baseView);
                 PsiImportStatement importContract = factory.createImportStatement(contract);
+                PsiImportStatement importModel = factory.createImportStatement(model);
 
-                ((PsiJavaFile) contract.getContainingFile()).getImportList().add(importBasePresenter).add(importBaseView);
+                ((PsiJavaFile) contract.getContainingFile()).getImportList().add(importBasePresenter);
+                ((PsiJavaFile) contract.getContainingFile()).getImportList().add(importBaseView);
                 //格式化代码
                 CodeStyleManager.getInstance(project).reformat(contract);
                 ((PsiJavaFile) model.getContainingFile()).getImportList().add(importContract);
+
                 ((PsiJavaFile) presenter.getContainingFile()).getImportList().add(importContract);
+                ((PsiJavaFile) presenter.getContainingFile()).getImportList().add(importModel);
 
 
             }

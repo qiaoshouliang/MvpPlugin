@@ -21,22 +21,30 @@ import com.qiaoshouliang.UI.CreateFileDialog;
  */
 public class CreateFileAction extends AnAction {
 
+    public CreateFileAction() {
+        getTemplatePresentation().setIcon(IconLoader.getIcon("/icons/icon_tf.png"));
+    }
+
     @Override
     public void actionPerformed(AnActionEvent e) {
-        e.getPresentation().setIcon(IconLoader.getIcon("/icons/icon_tf.png"));
         new CreateFileDialog(e).setVisible(true);
     }
 
     @Override
     public void update(AnActionEvent e) {
-        super.update(e);
-
+//        super.update(e);
+//
         IdeView ideView = e.getRequiredData(LangDataKeys.IDE_VIEW);
-        PsiDirectory directory = ideView.getOrChooseDirectory();
-        if (directory.getName().equals("contract"))
-            e.getPresentation().setEnabledAndVisible(true);
-        else
-            e.getPresentation().setEnabledAndVisible(false);
+//        Messages.showErrorDialog(ideView.toString(),"Error");
 
+        if (ideView.getDirectories().length == 1) {
+            PsiDirectory directory = ideView.getOrChooseDirectory();
+            if (directory.getName().equals("contract"))
+                e.getPresentation().setEnabledAndVisible(true);
+            else
+                e.getPresentation().setEnabledAndVisible(false);
+        } else {
+            e.getPresentation().setEnabledAndVisible(false);
+        }
     }
 }
