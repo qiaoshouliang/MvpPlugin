@@ -1,0 +1,25 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+package ${PACKAGE_NAME};
+#end
+/**
+ * Author: ${USER}
+ * Created on ${DATE}
+ */
+public interface  ${NAME}ModelImpl implements I${NAME}Contract.Model {
+
+    private I${NAME}Contract.Model model;
+    private I${NAME}Contract.View view;
+
+
+    @Override
+    public void init(I${NAME}Contract.View view) {
+        this.view = view;
+        model = new ${NAME}ModelImpl();
+    }
+
+    @Override
+    public void unInit() {
+
+    }
+
+}

@@ -1,0 +1,11 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+package ${PACKAGE_NAME};
+#end
+/**
+ * Author: ${USER}
+ * Created on ${DATE}
+ */
+public interface  ${NAME}ModelImpl implements I${NAME}Contract.Model {
+
+
+}

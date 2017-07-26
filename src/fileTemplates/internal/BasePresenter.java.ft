@@ -1,0 +1,12 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+package ${PACKAGE_NAME};
+#end
+/**
+ * Author: ${USER}
+ * Created on ${DATE}
+ */
+public interface BasePresenter<V extends BaseView>{
+    void init(V baseView);
+
+    void unInit();
+}

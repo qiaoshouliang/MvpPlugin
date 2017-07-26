@@ -1,0 +1,22 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+package ${PACKAGE_NAME};
+#end
+/**
+ * Author: ${USER}
+ * Created on ${DATE}
+ */
+public interface  I${NAME}Contract  {
+
+    interface View extends BaseView {
+        //TODO add abstract method related with view
+    }
+
+    interface Presenter extends BasePresenter<View> {
+        //TODO add abstract method for Presenter
+
+    }
+
+    interface Model {
+        //TODO add abstract method for Model
+    }
+}
