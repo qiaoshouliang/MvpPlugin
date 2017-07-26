@@ -6,6 +6,8 @@
       <xy x="48" y="54" width="260" height="120"/>
     </constraints>
     <properties>
+      <alignmentX value="1.0"/>
+      <alignmentY value="1.0"/>
       <minimumSize width="260" height="120"/>
       <name value="New Contract"/>
       <toolTipText value="New Contract"/>
@@ -74,7 +76,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="enter contract file name"/>
+              <text value="Enter contract file name"/>
             </properties>
           </component>
         </children>

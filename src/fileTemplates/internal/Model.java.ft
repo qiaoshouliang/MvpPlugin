@@ -5,7 +5,7 @@ package ${PACKAGE_NAME};
  * Author: ${USER}
  * Created on ${DATE}
  */
-public interface  ${NAME}ModelImpl implements I${NAME}Contract.Model {
+public class ${NAME}ModelImpl implements I${NAME}Contract.Model {
 
 
 }

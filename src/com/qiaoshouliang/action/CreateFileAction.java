@@ -9,6 +9,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.file.PsiDirectoryFactory;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -22,9 +23,20 @@ public class CreateFileAction extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-        // TODO: insert action logic here
+        e.getPresentation().setIcon(IconLoader.getIcon("/icons/icon_tf.png"));
         new CreateFileDialog(e).setVisible(true);
-
     }
 
+    @Override
+    public void update(AnActionEvent e) {
+        super.update(e);
+
+        IdeView ideView = e.getRequiredData(LangDataKeys.IDE_VIEW);
+        PsiDirectory directory = ideView.getOrChooseDirectory();
+        if (directory.getName().equals("contract"))
+            e.getPresentation().setEnabledAndVisible(true);
+        else
+            e.getPresentation().setEnabledAndVisible(false);
+
+    }
 }

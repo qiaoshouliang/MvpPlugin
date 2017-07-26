@@ -3,12 +3,13 @@ package com.qiaoshouliang.CreateFile;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
+import com.intellij.psi.codeStyle.CodeStyleManager;
 
 /**
  * Created by qiaoshouliang on 17/7/26.
  */
 public class CreateFile {
-    public  void createMVPFile(String className,Project project, PsiDirectory directory, JavaDirectoryService directoryService, PsiElementFactory factory) {
+    public void createMVPFile(String className, Project project, PsiDirectory directory, JavaDirectoryService directoryService, PsiElementFactory factory) {
 
         WriteCommandAction.runWriteCommandAction(project, new Runnable() {
 
@@ -59,13 +60,16 @@ public class CreateFile {
                 PsiImportStatement importContract = factory.createImportStatement(contract);
 
                 ((PsiJavaFile) contract.getContainingFile()).getImportList().add(importBasePresenter).add(importBaseView);
-                ((PsiJavaFile) model.getContainingFile()).getImportList().add(importBasePresenter).add(importContract);
-                ((PsiJavaFile) presenter.getContainingFile()).getImportList().add(importBasePresenter).add(importContract);
+                //格式化代码
+                CodeStyleManager.getInstance(project).reformat(contract);
+                ((PsiJavaFile) model.getContainingFile()).getImportList().add(importContract);
+                ((PsiJavaFile) presenter.getContainingFile()).getImportList().add(importContract);
 
 
             }
         });
     }
+
 
     public PsiDirectory getDirectoryByName(String name, PsiDirectory directory) {
 

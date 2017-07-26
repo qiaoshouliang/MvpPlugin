@@ -6,10 +6,12 @@ import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.PsiShortNamesCache;
 import com.qiaoshouliang.CreateFile.CreateFile;
+import org.apache.http.util.TextUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,22 +34,16 @@ public class CreateFileDialog extends JDialog {
 
         init(e);
 
+        setTitle("New Mvp File");
         setContentPane(contentPane);
-//        setModal(true);
-        setMinimumSize(new Dimension(260,120));
+        setModal(true);
+        setMinimumSize(new Dimension(260, 120));
+        setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e1 -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e1 -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -58,11 +54,9 @@ public class CreateFileDialog extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e1 -> onCancel(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void init(AnActionEvent e) {
@@ -77,14 +71,19 @@ public class CreateFileDialog extends JDialog {
     }
 
     private void onOK() {
-        new CreateFile().createMVPFile(textField.getText(),mProject,directory,myDirectoryService,myFactory);
-        dispose();
+        if (TextUtils.isEmpty(textField.getText())) {
+            Messages.showErrorDialog("Generation failed, " +
+                            "your must enter class name",
+                    "Class Name is null");
+        } else {
+            new CreateFile().createMVPFile(textField.getText(), mProject, directory, myDirectoryService, myFactory);
+            dispose();
+        }
     }
 
     private void onCancel() {
         dispose();
     }
-
 
 
 }
