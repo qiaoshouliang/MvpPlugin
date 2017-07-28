@@ -22,17 +22,8 @@ public class CreateFileDialog extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField textField;
-    private PsiElementFactory myFactory;
-    private Project mProject;
-    private PsiShortNamesCache myShortNamesCache;
-    private GlobalSearchScope myProjectScope;
-    private JavaDirectoryService myDirectoryService;
-    private PsiDirectory directory;
-
 
     public CreateFileDialog(AnActionEvent e) {
-
-        init(e);
 
         setTitle("New Mvp File");
         setContentPane(contentPane);
@@ -41,7 +32,7 @@ public class CreateFileDialog extends JDialog {
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(e1 -> onOK());
+        buttonOK.addActionListener(e1 -> onOK(e));
 
         buttonCancel.addActionListener(e1 -> onCancel());
 
@@ -59,24 +50,13 @@ public class CreateFileDialog extends JDialog {
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void init(AnActionEvent e) {
-
-        mProject = e.getData(PlatformDataKeys.PROJECT);
-        myFactory = JavaPsiFacade.getElementFactory(mProject);
-        myShortNamesCache = PsiShortNamesCache.getInstance(mProject);
-        myProjectScope = GlobalSearchScope.projectScope(mProject);
-        myDirectoryService = JavaDirectoryService.getInstance();
-        IdeView ideView = e.getRequiredData(LangDataKeys.IDE_VIEW);
-        directory = ideView.getOrChooseDirectory();
-    }
-
-    private void onOK() {
+    private void onOK(AnActionEvent e) {
         if (TextUtils.isEmpty(textField.getText())) {
             Messages.showErrorDialog("Generation failed, " +
                             "your must enter class name",
                     "Class Name is null");
         } else {
-            new CreateFile().createMVPFile(textField.getText(), mProject, directory, myDirectoryService, myFactory);
+            new CreateFile(e,textField.getText()).execute();
             dispose();
         }
     }
